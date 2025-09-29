@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\DevForum.Application\DevForum.Application.csproj" />
       <ProjectReference Include="..\DevForum.Contracts\DevForum.Contracts.csproj" />
       <ProjectReference Include="..\DevForum.Domain\DevForum.Domain.csproj" />
     </ItemGroup>
