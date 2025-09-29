@@ -1,18 +1,26 @@
+using DevForum.Application.Questions;
 using DevForum.Contracts;
-using DevForum.Domain.Questions;
+using DevForum.Contracts.Questions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
-namespace DevForum.Presenters;
+namespace DevForum.Presenters.Questions;
 
 [ApiController]
 [Route("[controller]")]
 public class QuestionsController : ControllerBase
 {
-    [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateQuestionDTO dto)
+    private readonly IQuestionsService _questionService;
+
+    public QuestionsController(IQuestionsService questionService)
     {
-        return Ok();
+        _questionService = questionService;
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] CreateQuestionDTO dto, CancellationToken cancellationToken)
+    {
+        var questionId = await _questionService.Create(dto, cancellationToken);
+        return Ok($"Question created with id {questionId}");
     }
 
     [HttpGet]
